@@ -1,0 +1,14 @@
+services:
+  mongo:
+    image: mongo:latest
+    container_name: client-auth-mongodb
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_DATABASE: client-auth-mongodb
+    volumes:
+      - clientauth_mongo_data:/data/db
+    restart: unless-stopped
+
+volumes:
+  clientauth_mongo_data:
