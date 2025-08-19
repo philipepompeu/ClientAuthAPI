@@ -1,6 +1,8 @@
+using System.Security.Claims;
 using System.Text;
 using ClientAuthAPI.Interfaces;
 using ClientAuthAPI.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ClientAuthAPI.Extensions;
 
@@ -58,6 +60,45 @@ public static class RoutingExtension
                 return Results.Unauthorized();
 
             return Results.Ok(new { access_token = token });
+        });
+
+        app.MapPost("/auth/login", [Authorize] async (UserAuthViewModel request, IAuthService authService, IUserService userService, ClaimsPrincipal user) =>
+        {
+
+            Claim? clientId = user.FindFirst("client_id");
+            
+            if (clientId == null || string.IsNullOrWhiteSpace(clientId.Value))
+                return Results.Unauthorized();
+
+            var userToAuth = await userService.FindUserByNameAndClientId(request.Username, clientId.Value);
+            if (userToAuth == null)
+                return Results.Unauthorized();
+
+            string? token = await authService.AuthenticateUserAsync(userToAuth, request.Password);
+
+            if (token == null)
+                return Results.Unauthorized();
+
+            return Results.Ok(new { access_token = token });
+        });
+
+        return app;
+    }
+
+    public static WebApplication MapUserEndpoints(this WebApplication app)
+    {
+        app.MapPost("/users", [Authorize] async (UserViewModel request, IUserService userService, ClaimsPrincipal user) =>
+        {
+            Claim? clientId = user.FindFirst("client_id");
+
+            Console.WriteLine($"Client ID: {clientId?.Value}");
+            
+            if (clientId == null || string.IsNullOrWhiteSpace(clientId.Value))
+                return Results.Unauthorized();
+
+            var result = await userService.CreateUserAsync(request, clientId.Value);
+            
+            return Results.Created($"/users/{result.Id}", new { result.Id, result.Username });
         });
 
         return app;

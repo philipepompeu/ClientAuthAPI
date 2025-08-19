@@ -1,17 +1,18 @@
 using ClientAuthAPI.Interfaces;
 using ClientAuthAPI.Models;
+using ClientAuthAPI.Repositories;
 using ClientAuthAPI.ViewModels;
 using System.Security.Cryptography;
 
 namespace ClientAuthAPI.Services;
 
 public class ClientService:IClientService
-{
-    private readonly MongoService _mongo;
+{    
+    private readonly IRepository<Client> _clientRepository;
 
-    public ClientService(MongoService mongo)
+    public ClientService(IRepository<Client> repository)
     {
-        _mongo = mongo;
+        _clientRepository = repository;
     }
 
     public async Task<Client> ProvisionClientAsync(ClientViewModel request)
@@ -28,7 +29,7 @@ public class ClientService:IClientService
             ClientSecret = clientSecret
         };
 
-        await _mongo.CreateClientAsync(client);
+        await _clientRepository.CreateAsync(client);
 
         return client;
     }

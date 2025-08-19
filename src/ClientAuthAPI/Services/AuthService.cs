@@ -48,5 +48,10 @@ namespace ClientAuthAPI.Services
 
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
+
+        public async Task<string?> AuthenticateUserAsync(User user, string Password)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
