@@ -8,9 +8,9 @@ namespace ClientAuthAPI.Services;
 
 public class ClientService:IClientService
 {    
-    private readonly IRepository<Client> _clientRepository;
+    private readonly IClientRepository _clientRepository;
 
-    public ClientService(IRepository<Client> repository)
+    public ClientService(IClientRepository repository)
     {
         _clientRepository = repository;
     }

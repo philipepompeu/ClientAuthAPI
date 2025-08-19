@@ -1,34 +1,14 @@
 using System.Text;
 using ClientAuthAPI;
 using ClientAuthAPI.Extensions;
-using ClientAuthAPI.Interfaces;
-using ClientAuthAPI.Models;
-using ClientAuthAPI.Repositories;
-using ClientAuthAPI.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
-using MongoDB.Driver;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddSingleton<MongoService>();
-builder.Services.AddScoped<IMongoCollection<Client>>(sp =>
-{
-    var mongo = sp.GetRequiredService<MongoService>();
-    return mongo.GetCollection<Client>("clients");
-});
+builder.Services.AddRepositories();    
 
-builder.Services.AddScoped<IMongoCollection<User>>(sp =>
-{
-    var mongo = sp.GetRequiredService<MongoService>();
-    return mongo.GetCollection<User>("users");
-});
-builder.Services.AddScoped<IRepository<Client>, ClientRepository>();
-builder.Services.AddScoped<IUserRepository, UserRepository>();
-
-builder.Services.AddScoped<IClientService, ClientService>();
-builder.Services.AddScoped<IAuthService, AuthService>();
-builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddServices();
 
 var jwtSection = builder.Configuration.GetSection("JwtSettings");
 var jwtSettings = jwtSection.Get<JwtSettings>();

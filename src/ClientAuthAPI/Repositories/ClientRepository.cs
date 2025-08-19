@@ -3,7 +3,7 @@ using MongoDB.Driver;
 
 namespace ClientAuthAPI.Repositories;
 
-public class ClientRepository : RepositoryBase<Client>, IRepository<Client>
+public class ClientRepository : RepositoryBase<Client>, IClientRepository
 {
     public ClientRepository(IMongoCollection<Client> collection) : base(collection)
     {

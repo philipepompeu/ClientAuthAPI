@@ -6,6 +6,6 @@ namespace ClientAuthAPI.Interfaces
     {
         Task<string?> AuthenticateAndGenerateTokenAsync(string clientId, string clientSecret);
 
-        Task<string?> AuthenticateUserAsync(User user, string Password);
+        Task<string?> AuthenticateUserAsync(User user, string password);
     }
 }
