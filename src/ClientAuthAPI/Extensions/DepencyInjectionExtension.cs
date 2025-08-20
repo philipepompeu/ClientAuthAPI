@@ -1,4 +1,5 @@
 
+using ClientAuthAPI.Documents;
 using ClientAuthAPI.Interfaces;
 using ClientAuthAPI.Models;
 using ClientAuthAPI.Repositories;
@@ -12,16 +13,16 @@ public static class DependencyInjectionExtension
     public static IServiceCollection AddRepositories(this IServiceCollection services)
     {
         services.AddSingleton<MongoService>();
-        services.AddScoped<IMongoCollection<Client>>(sp =>
+        services.AddScoped<IMongoCollection<ClientDocument>>(sp =>
         {
             var mongo = sp.GetRequiredService<MongoService>();
-            return mongo.GetCollection<Client>("clients");
+            return mongo.GetCollection<ClientDocument>("clients");
         });
 
-        services.AddScoped<IMongoCollection<User>>(sp =>
+        services.AddScoped<IMongoCollection<UserDocument>>(sp =>
         {
             var mongo = sp.GetRequiredService<MongoService>();
-            return mongo.GetCollection<User>("users");
+            return mongo.GetCollection<UserDocument>("users");
         });
         services.AddScoped<IClientRepository, ClientRepository>();
         services.AddScoped<IUserRepository, UserRepository>();

@@ -1,7 +1,7 @@
 
 namespace ClientAuthAPI.Repositories;
 
-public interface IRepository<T>
+public interface IRepository<T, TDocument>
 {
 
     Task<T> CreateAsync(T entity);
@@ -9,4 +9,7 @@ public interface IRepository<T>
     Task<IEnumerable<T>> GetAllAsync();
     Task<bool> UpdateAsync(string id, T entity);
     Task<bool> DeleteAsync(string id);
+
+    TDocument ToDocument(T entity);
+    T FromDocument(TDocument document);
 }

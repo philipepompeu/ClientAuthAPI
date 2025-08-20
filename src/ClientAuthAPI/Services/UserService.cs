@@ -22,7 +22,7 @@ public class UserService: IUserService
             Username = request.Username,
             PasswordHash = PasswordHasher.HashPassword(request.Password),
             ClientId = clientId,
-            CreatedAt = DateTime.UtcNow
+            CreatedAt = DateTime.UtcNow,
         };
 
         var addedUser = await _userRepository.CreateAsync(user);
