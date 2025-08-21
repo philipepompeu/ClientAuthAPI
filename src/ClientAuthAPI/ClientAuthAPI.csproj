@@ -6,11 +6,13 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.4" />
-    <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="8.14.0" />
+  <ItemGroup>    
     <PackageReference Include="MongoDB.Driver" Version="3.4.2" />
-    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="8.14.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ClientAuthAPI.Infrastructure.Mongo\ClientAuthAPI.Infrastructure.Mongo.csproj" />
+    <ProjectReference Include="..\ClientAuthAPI.Infrastructure.Security\ClientAuthAPI.Infrastructure.Security.csproj" />
   </ItemGroup>
 
 </Project>

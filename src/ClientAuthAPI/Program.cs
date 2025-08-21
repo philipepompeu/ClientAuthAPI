@@ -1,6 +1,7 @@
 using System.Text;
-using ClientAuthAPI;
 using ClientAuthAPI.Extensions;
+using ClientAuthAPI.Infrastructure.Mongo;
+using ClientAuthAPI.Infrastructure.Security;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 

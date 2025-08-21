@@ -1,8 +1,11 @@
 
-using ClientAuthAPI.Documents;
-using ClientAuthAPI.Interfaces;
-using ClientAuthAPI.Models;
-using ClientAuthAPI.Repositories;
+
+using ClientAuthAPI.Application.Interfaces;
+using ClientAuthAPI.Application.Services;
+using ClientAuthAPI.Domain.Interfaces;
+using ClientAuthAPI.Infrastructure.Mongo.Documents;
+using ClientAuthAPI.Infrastructure.Mongo.Repositories;
+using ClientAuthAPI.Infrastructure.Security.Services;
 using ClientAuthAPI.Services;
 using MongoDB.Driver;
 
@@ -34,6 +37,7 @@ public static class DependencyInjectionExtension
         services.AddScoped<IClientService, ClientService>();
         services.AddScoped<IAuthService, AuthService>();
         services.AddScoped<IUserService, UserService>();
+        services.AddScoped<IAuthTokenService, AuthTokenService>();
 
         return services;
     }

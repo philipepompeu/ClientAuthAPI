@@ -1,7 +1,7 @@
 using System.Security.Claims;
 using System.Text;
-using ClientAuthAPI.Interfaces;
-using ClientAuthAPI.ViewModels;
+using ClientAuthAPI.Application.Interfaces;
+using ClientAuthAPI.Application.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 
 namespace ClientAuthAPI.Extensions;
@@ -96,6 +96,7 @@ public static class RoutingExtension
             if (clientId == null || string.IsNullOrWhiteSpace(clientId.Value))
                 return Results.Unauthorized();
 
+        
             var result = await userService.CreateUserAsync(request, clientId.Value);
             
             return Results.Created($"/users/{result.Id}", new { result.Id, result.Username });
