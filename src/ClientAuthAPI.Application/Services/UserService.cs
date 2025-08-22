@@ -37,14 +37,5 @@ public class UserService: IUserService
     {
         return await _userRepository.FindByUsernameAndClientIdAsync(username, clientId);
     }
-
-    Task<User> IUserService.CreateUserAsync(UserViewModel request, string clientId)
-    {
-        throw new NotImplementedException();
-    }
-
-    Task<User?> IUserService.FindUserByNameAndClientId(string username, string clientId)
-    {
-        throw new NotImplementedException();
-    }
+    
 }

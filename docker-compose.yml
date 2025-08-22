@@ -1,4 +1,19 @@
 services:
+  clientauthapi:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    container_name: clientauthapi
+    ports:
+      - "8080:8080"  # Acesso externo: http://localhost:8080
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - MongoDB__ConnectionString=mongodb://mongo:27017
+      - MongoDB__Database=client-auth-mongodb
+      - ASPNETCORE_URLS=http://0.0.0.0:8080
+    depends_on:
+      - mongo
+
   mongo:
     image: mongo:latest
     container_name: client-auth-mongodb
