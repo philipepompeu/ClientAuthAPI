@@ -1,7 +1,6 @@
 # ClientAuthAPI Study Project
 
 This repository contains a small study project built while exploring the .NET 8 ecosystem.  
-It’s **not meant to be production‑ready**, but rather a sandbox to practice modern backend development in C# and learn how the pieces fit together.
 
 ## What you’ll find here
 
