@@ -9,7 +9,7 @@ using Microsoft.IdentityModel.Tokens;
 namespace ClientAuthAPI.Infrastructure.Security.Services
 {
 
-    public class AuthTokenService : IAuthTokenService
+    internal sealed class AuthTokenService : IAuthTokenService
     {
         private readonly JwtSettings _jwt;
         public AuthTokenService(IOptions<JwtSettings> jwtOptions)

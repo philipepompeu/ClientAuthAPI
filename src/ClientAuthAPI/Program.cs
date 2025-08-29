@@ -1,4 +1,5 @@
 using System.Text;
+using ClientAuthAPI.Application;
 using ClientAuthAPI.Extensions;
 using ClientAuthAPI.Infrastructure.Mongo;
 using ClientAuthAPI.Infrastructure.Security;
@@ -7,9 +8,9 @@ using Microsoft.IdentityModel.Tokens;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddRepositories();    
-
-builder.Services.AddServices();
+builder.Services.AddRepositories();
+builder.Services.AddApplicationServices();
+builder.Services.AddSecurityInfraServices();        
 
 var jwtSection = builder.Configuration.GetSection("JwtSettings");
 var jwtSettings = jwtSection.Get<JwtSettings>();

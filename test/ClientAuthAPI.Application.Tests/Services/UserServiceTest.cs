@@ -7,6 +7,7 @@ using ClientAuthAPI.Application.Interfaces;
 using ClientAuthAPI.Application.ViewModels;
 using ClientAuthAPI.Domain.Interfaces;
 using ClientAuthAPI.Domain.Models;
+using Bogus;
 
 namespace ClientAuthAPI.Application.Tests.Services
 {
@@ -15,6 +16,7 @@ namespace ClientAuthAPI.Application.Tests.Services
         private readonly Mock<IUserRepository> _userRepositoryMock;
         private readonly Mock<IAuthTokenService> _authTokenServiceMock;
         private readonly UserService _userService;
+        private readonly Faker _faker = new Faker();
 
         public UserServiceTest()
         {
@@ -27,7 +29,10 @@ namespace ClientAuthAPI.Application.Tests.Services
         public async Task CreateUserAsync_ShouldCreateUserWithHashedPassword()
         {
             // Arrange
-            var userViewModel = new UserViewModel { Username = "testuser", Password = "password123" };
+            var userName = _faker.Internet.UserName();
+            var pwd = _faker.Internet.Password();
+
+            var userViewModel = new UserViewModel { Username = userName, Password = pwd };
             var clientId = "client-1";
             var hashedPassword = "hashedPassword";
             var createdUser = new User
@@ -57,8 +62,9 @@ namespace ClientAuthAPI.Application.Tests.Services
         public async Task FindUserByNameAndClientId_ShouldReturnUser_WhenUserExists()
         {
             // Arrange
-            var username = "testuser";
-            var clientId = "client-1";
+            var username = _faker.Internet.UserName();
+            var clientId = Guid.NewGuid().ToString("N");
+
             var user = new User { Username = username, ClientId = clientId };
 
             _userRepositoryMock.Setup(x => x.FindByUsernameAndClientIdAsync(username, clientId)).ReturnsAsync(user);
@@ -76,7 +82,7 @@ namespace ClientAuthAPI.Application.Tests.Services
         public async Task FindUserByNameAndClientId_ShouldReturnNull_WhenUserDoesNotExist()
         {
             // Arrange
-            var username = "nonexistent";
+            var username = _faker.Internet.UserName();
             var clientId = "client-1";
 
             _userRepositoryMock.Setup(x => x.FindByUsernameAndClientIdAsync(username, clientId)).ReturnsAsync((User?)null);

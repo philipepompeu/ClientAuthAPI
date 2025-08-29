@@ -32,13 +32,5 @@ public static class DependencyInjectionExtension
 
         return services;
     }
-    public static IServiceCollection AddServices(this IServiceCollection services)
-    {
-        services.AddScoped<IClientService, ClientService>();
-        services.AddScoped<IAuthService, AuthService>();
-        services.AddScoped<IUserService, UserService>();
-        services.AddScoped<IAuthTokenService, AuthTokenService>();
-
-        return services;
-    }
+    
 }

@@ -8,7 +8,7 @@ using ClientAuthAPI.Domain.Models;
 
 namespace ClientAuthAPI.Application.Services
 {
-    public class AuthService : IAuthService
+    internal sealed class AuthService : IAuthService
     {        
         
         private readonly IClientRepository _clientRepository;

@@ -7,7 +7,7 @@ using ClientAuthAPI.Domain.Models;
 
 namespace ClientAuthAPI.Application.Services;
 
-public class UserService: IUserService
+internal sealed class UserService: IUserService
 {
     private readonly IUserRepository _userRepository;    
     private readonly IAuthTokenService _authTokenService;
